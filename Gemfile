@@ -17,7 +17,7 @@ gem 'compass'
 
 # Other templating languages
 # gem 'erubis'
-# gem 'haml'
+gem 'haml'
 # gem 'slim'
 # gem 'radius'
 # gem 'less'
