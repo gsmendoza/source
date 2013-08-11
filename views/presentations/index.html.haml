@@ -3,12 +3,16 @@
     :markdown
       ## Index
 
-      1. [Installing and Running Rails](/presentations/10-installing-and-running-rails.html)
+    - Presentation::DATA.select{|p| p.category == 'lesson'}.each do |presentation|
+      :markdown
+        1. [#{presentation.title}](#{presentation.path})
 
   %section
     :markdown
       ## Speakers
-      
-      * [George Mendoza](/presentations/0-gsmendoza-introduction.html)
+
+    - Presentation::DATA.select{|p| p.category == 'speaker'}.each do |presentation|
+      :markdown
+        1. [#{presentation.title}](#{presentation.path})
 
 

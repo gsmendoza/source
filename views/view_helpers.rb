@@ -1,9 +1,18 @@
-#
-# Methods placed in this module can be used inside of any view.
-# View helpers allow you to encapsalate complex logic and keep your
-# views pristine.
-#
 module ViewHelpers
+  class Presentation < Struct.new(:id, :category, :title, :basename)
+    DATA = [
+      new(:gsmendoza, 'speaker', 'George Mendoza', '0-gsmendoza-introduction'),
+      new(:installation, 'lesson', 'Installing and Running Rails', '10-installing-and-running-rails')
+    ]
+
+    def self.find(id)
+      DATA.detect{|p| p.id == id}
+    end
+
+    def path
+      "/presentations/#{basename}.html"
+    end
+  end
   
   # Calculate the years for a copyright
   def copyright_years(start_year)
