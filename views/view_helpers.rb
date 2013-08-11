@@ -1,9 +1,10 @@
 module ViewHelpers
-  class Presentation < Struct.new(:id, :category, :title, :basename)
+  class Presentation < Struct.new(:id, :category, :title, :filename)
     DATA = [
-      new(:gsmendoza, 'speaker', 'George Mendoza', '0-gsmendoza-introduction'),
-      new(:installation, 'lesson', 'Installing and Running Rails', '10-installing-and-running-rails'),
-      new(:database_crud, 'lesson', 'Database CRUD', '20-database-crud')
+      new(:index, 'index', 'Presentations', nil),
+      new(:gsmendoza, 'speaker', 'George Mendoza', '0-gsmendoza-introduction.html'),
+      new(:installation, 'lesson', 'Installing and Running Rails', '10-installing-and-running-rails.html'),
+      new(:database_crud, 'lesson', 'Database CRUD', '20-database-crud.html')
     ]
 
     def self.find(id)
@@ -11,7 +12,7 @@ module ViewHelpers
     end
 
     def path
-      "/presentations/#{basename}.html"
+      "/presentations/#{filename}".chomp('/')
     end
   end
   
