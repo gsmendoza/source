@@ -4,7 +4,8 @@ strong {
 
 div.image-group {
   background: white;
-  padding: 0.5em;
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
 section.section-logo img {
