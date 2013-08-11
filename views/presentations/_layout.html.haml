@@ -20,7 +20,9 @@
 
     / If the query includes 'print-pdf', use the PDF print sheet
     :javascript
-      document.write( '<link rel="stylesheet" href="/vendor/reveal.js-2.4.0/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+      document.write( '<link rel="stylesheet" href="/vendor/reveal.js-2.4.0/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="#{params['media'] || 'print'}">' );
+
+      document.write( '<link rel="stylesheet" href="/stylesheets/presentations/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="#{params['media'] || 'print'}">' );
 
     /[if lt IE 9]
       <script src="/vendor/reveal.js-2.4.0/lib/js/html5shiv.js"></script>
