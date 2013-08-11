@@ -1,0 +1,23 @@
+strong {
+  color: yellow;
+}
+
+div.image-group {
+  background: white;
+  padding: 0.5em;
+}
+
+section.section-logo img {
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+section.section-logo-large img {
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  height: 10em;
+}
