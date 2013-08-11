@@ -5,7 +5,7 @@
     %meta{:content => "A framework for easily creating beautiful presentations using HTML", :name => "description"}/
     %title
       Geekcamp Baguio 2013 -
-      =  Presentation::DATA.detect{|p| p.path == request.env['REQUEST_PATH']}.title
+      =  Presentation::DATA.detect{|p| p.path == request.env['REQUEST_PATH']}.try(:title)
     %meta{:content => "Hakim El Hattab", :name => "author"}/
     %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
     %meta{:content => "black-translucent", :name => "apple-mobile-web-app-status-bar-style"}/
