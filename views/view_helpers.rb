@@ -2,7 +2,8 @@ module ViewHelpers
   class Presentation < Struct.new(:id, :category, :title, :basename)
     DATA = [
       new(:gsmendoza, 'speaker', 'George Mendoza', '0-gsmendoza-introduction'),
-      new(:installation, 'lesson', 'Installing and Running Rails', '10-installing-and-running-rails')
+      new(:installation, 'lesson', 'Installing and Running Rails', '10-installing-and-running-rails'),
+      new(:database_crud, 'lesson', 'Database CRUD', '20-database-crud')
     ]
 
     def self.find(id)

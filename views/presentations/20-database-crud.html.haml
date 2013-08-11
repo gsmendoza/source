@@ -1,0 +1,165 @@
+.slides
+  %section
+    :markdown
+      # #{Presentation.find(:database_crud).title}
+
+  %section
+    :markdown
+      ## Exercise 1: List itineraries
+
+  %section
+    :markdown
+      ## Goal
+
+          cmd > rails console
+          irb > Itinerary.all
+
+      ### Result
+
+          NameError: uninitialized constant Itinerary
+
+  %section
+    :markdown
+      ## Step 0: Install and configure Geany
+
+      * Download from [geany.org](geany.org) and install
+
+      * Configure Geany:
+
+              Preferences
+                Editor
+                  Indentation
+                    Width: 2
+                    Type: Spaces
+
+
+  %section
+    :markdown
+      ## Step 1: Create Itinerary class
+
+          # app/models/itinerary.rb
+          class Itinerary
+          end
+
+      ### Result
+
+          irb > Itinerary.all
+          => NoMethodError: undefined method `all' for Itinerary:Class 
+
+      * A class is a type of object.
+      * Convention over configuration: case matters.
+
+
+  %section
+    :markdown
+      ## Step 2: Make Itinerary an ActiveRecord
+
+              # app/models/itinerary.rb
+              class Itinerary < ActiveRecord::Base
+              end
+
+      ### Result
+
+          irb > Itinerary.all
+          => NoMethodError: undefined method `all' for Itinerary:Class 
+
+      * ActiveRecord is a ruby gem (library) used to managing database records
+
+
+  %section
+    :markdown
+      ## Step 3: Reload the rails console
+
+          irb > reload!
+
+      ### Result
+
+          Reloading...
+          => true
+          
+          irb > Itinerary.all
+          [1m←[35mItinerary Load (0.0ms)←[0m  SELECT "itineraries".* FROM "itineraries"
+          SQLite3::SQLException: no such table: itineraries: SELECT "itineraries".* FROM "itineraries"
+          ActiveRecord::StatementInvalid: SQLite3::SQLException: no such table: itineraries: SELECT "itineraries".* FROM "itineraries"
+
+  %section
+    :markdown
+      ##  Step 4. Create a database table itineraries.
+
+          cmd > rails generate migration create_itineraries 
+
+          # /db/migrations/2013_****_create_itineraries.rb 
+          class CreateItineraries < ActiveRecord::Migration
+            def change
+              create_table :itineraries do |t|
+                t.string "location"
+                t.date "travel_on"
+              end
+            end
+          end
+  
+          cmd > rake db:migrate
+
+      * Migration is a transaction to update our database
+      * Database is like an enhanced spreadsheet
+      * Two kinds of rails commands: rails <command> and rake <command>
+
+  %section
+    :markdown
+      ## Result
+
+          irb > Itinerary.all
+          => ←[1m←[36mItinerary Load (7.8ms)←[0m  ←[1mSELECT "itineraries".* FROM "itineraries"←[0m
+          => #<ActiveRecord::Relation []>    
+
+  %section
+    :markdown
+      ## Exercise 2: Create an itinerary
+
+          irb > itinerary = Itinerary.new
+          => #<Itinerary id: nil, location: nil, travel_on: nil>
+
+          irb > itinerary.location = 'Baguio'
+          irb > itinerary.travel_on = Date.new(2013, 12, 25) 
+          irb > itinerary.save
+
+      * Variable assignment
+
+  %section
+    :markdown
+      ## Exercise 3: Find a specific itinerary
+
+          irb > Itinerary.find(1)
+          => #<Itinerary id: 1, location: "Baguio", travel_on: "2013-12-25">
+
+
+  %section
+    :markdown
+      ## Exercise 4: Edit an itinerary
+
+          irb > itinerary = Itinerary.find(1)
+          irb > itinerary.location
+          => "Baguio"
+
+          irb > itinerary = Itinerary.find(1)
+          irb > itinerary.location = 'Manila'
+          irb > itinerary.save
+
+          irb > itinerary = Itinerary.find(1)
+          irb > itinerary.location
+          => "Manila"
+
+  %section
+    :markdown
+      ## Exercise 5: Delete an itinerary
+
+          irb > itinerary = Itinerary.find(1)
+          => #<Itinerary id: 1, location: "Baguio", travel_on: "2013-12-25">
+
+          irb > itinerary.destroy
+
+          irb > Itinerary.find(1)
+          => ActiveRecord::RecordNotFound: Couldn't find Itinerary with id=1    
+
+  = render 'sections/back_to_index'
+
