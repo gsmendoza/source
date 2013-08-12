@@ -1,19 +1,23 @@
 module ViewHelpers
-  class Presentation < Struct.new(:id, :category, :title, :filename)
+  class Presentation < Struct.new(:id, :category, :title, :basename)
     DATA = [
-      new(:index, 'index', 'Presentations', nil),
-      new(:gsmendoza, 'speaker', 'George Mendoza', '0-gsmendoza-introduction.html'),
-      new(:installation, 'lesson', 'Installing and Running Rails', '10-installing-and-running-rails.html'),
-      new(:database_crud, 'lesson', 'Database CRUD', '20-database-crud.html'),
-      new(:show_itinerary, 'lesson', 'Show Itinerary Page', '30-show.html')
+      new(:index, 'index', 'Presentations', 'presentations'),
+      new(:gsmendoza, 'speaker', 'George Mendoza', '0-gsmendoza-introduction'),
+      new(:installation, 'lesson', 'Installing and Running Rails', '10-installing-and-running-rails'),
+      new(:database_crud, 'lesson', 'Database CRUD', '20-database-crud'),
+      new(:show_itinerary, 'lesson', 'Show Itinerary Page', '30-show')
     ]
 
     def self.find(id)
       DATA.detect{|p| p.id == id}
     end
 
+    def matches_request_uri?(request_uri)
+      basename == request_uri.split('/').last
+    end
+
     def path
-      "/presentations/#{filename}".chomp('/')
+      id == :index ? "/presentations" : "/presentations/#{basename}"
     end
   end
 
