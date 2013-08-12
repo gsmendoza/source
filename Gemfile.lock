@@ -5,6 +5,7 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     chunky_png (1.2.8)
+    coderay (1.0.9)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -13,7 +14,12 @@ GEM
     haml (4.0.3)
       tilt
     i18n (0.6.4)
+    method_source (0.8.1)
     multi_json (1.7.8)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -28,6 +34,7 @@ GEM
       rack-test (~> 0.6.2)
       tilt (~> 1.3.3)
       tzinfo
+    slop (3.4.5)
     tilt (1.3.7)
     tzinfo (1.0.1)
 
@@ -37,6 +44,7 @@ PLATFORMS
 DEPENDENCIES
   compass
   haml
+  pry
   rack-contrib
   redcarpet
   serve (= 1.5.2)
