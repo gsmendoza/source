@@ -143,7 +143,7 @@
             <tr>
               <td><%= @itinerary.location %></td>
               <td><%= @itinerary.travel_on %></td>
-              <td><%= link_to 'Show', itinerary %></td>
+              <td><%= link_to 'Show', action: 'show', id: itinerary.id %></td>
             <tr>
           <% end %>
           </table>
@@ -154,6 +154,6 @@
 
           # app/views/itineraries/show.html.erb
 
-          <p><%= link_to 'Back', Itinerary %></p>
+          <p><%= link_to 'Back', action: 'index' %></p>
 
   = render 'sections/back_to_index'
