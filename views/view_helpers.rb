@@ -7,7 +7,8 @@ module ViewHelpers
       new(:database_crud, 'lesson', 'Database CRUD', '20-database-crud'),
       new(:show_itinerary, 'lesson', 'Show Itinerary Page', '30-show'),
       new(:list_itineraries, 'lesson', 'List Itineraries Page', '40-index'),
-      new(:create_itinerary, 'lesson', 'Create Itinerary Page', '50-create')
+      new(:create_itinerary, 'lesson', 'Create Itinerary Page', '50-create'),
+      new(:update_itinerary, 'lesson', 'Update Itinerary Page', '60-update')
     ]
 
     def self.find(id)

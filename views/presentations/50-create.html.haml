@@ -69,7 +69,7 @@
 
             <p>
               <%= f.label :travel_on %>
-              <%= f.text_field :travel_on %>
+              <%= f.date_select :travel_on %>
             </p>
 
             <p>
@@ -185,7 +185,7 @@
               @itinerary.location = params[:itinerary][:location]
               @itinerary.travel_on = params[:itinerary][:travel_on]
               @itinerary.save
-              redirect @itinerary
+              redirect_to action: 'show', id: @itinerary.id
             end
           end
 
@@ -203,7 +203,7 @@
               @itinerary = Itinerary.new
               @itinerary.attributes = params[:itinerary]
               @itinerary.save
-              redirect @itinerary
+              redirect_to action: 'show', id: @itinerary.id
             end
           end
 
@@ -223,7 +223,7 @@
               @itinerary = Itinerary.new
               @itinerary.attributes = params[:itinerary].permit(:location, :travel_on)
               @itinerary.save
-              redirect @itinerary
+              redirect_to action: 'show', id: @itinerary.id
             end
           end
 
