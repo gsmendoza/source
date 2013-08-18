@@ -9,7 +9,8 @@ module ViewHelpers
       new(:list_itineraries, 'lesson', 'List Itineraries Page', '40-index'),
       new(:create_itinerary, 'lesson', 'Create Itinerary Page', '50-create'),
       new(:update_itinerary, 'lesson', 'Update Itinerary Page', '60-update'),
-      new(:delete_itinerary, 'lesson', 'Delete Itinerary Page', '70-delete')
+      new(:delete_itinerary, 'lesson', 'Delete Itinerary Page', '70-delete'),
+      new(:validate_itinerary, 'lesson', 'Validate Itinerary', '80-validate')
     ]
 
     def self.find(id)
