@@ -10,7 +10,9 @@ module ViewHelpers
       new(:create_itinerary, 'lesson', 'Create Itinerary Page', '50-create'),
       new(:update_itinerary, 'lesson', 'Update Itinerary Page', '60-update'),
       new(:delete_itinerary, 'lesson', 'Delete Itinerary Page', '70-delete'),
-      new(:validate_itinerary, 'lesson', 'Validate Itinerary', '80-validate')
+      new(:validate_itinerary, 'lesson', 'Validate Itinerary', '80-validate'),
+      new(:guide, 'guide', 'Guide', 'guide'),
+      new(:reveal_js, 'reveal_js', 'reveal.js-2.4.0', 'reveal.js-2.4.0'),
     ]
 
     def self.find(id)

@@ -1,0 +1,31 @@
+.slides
+  %section
+    :markdown
+      ## Lessons
+
+    %ol
+      - Presentation::DATA.select{|p| p.category == 'lesson'}.each do |presentation|
+        %li
+          :markdown
+            [#{presentation.title}](#{presentation.path})
+
+  %section
+    :markdown
+      ## Speakers
+
+    %ul
+      - Presentation::DATA.select{|p| p.category == 'speaker'}.each do |presentation|
+        %li
+          :markdown
+            [#{presentation.title}](#{presentation.path})
+
+  %section
+    :markdown
+      ## Guide
+
+    %ul
+      - Presentation::DATA.select{|p| p.category == 'guide'}.each do |presentation|
+        %li
+          :markdown
+            [#{presentation.title}](#{presentation.path})
+
