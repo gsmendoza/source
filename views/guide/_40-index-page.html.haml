@@ -1,0 +1,159 @@
+.slides
+  %section
+    :markdown
+      # #{Presentation.find(:list_itineraries).title}
+
+  %section
+    :markdown
+      ## Step 0: Have at least one itinerary
+
+      * Create several itineraries in rails console.
+
+  %section
+    :markdown
+      ## Goal
+
+          browser > http://localhost:3000/itineraries
+
+      ### Result
+
+          browser =>
+            Unknown action
+            The action 'index' could not be found for ItinerariesController
+
+
+  %section
+    :markdown
+      ## Step 1: Add index action to ItinerariesController
+
+          # app/controllers/itineraries_controller.rb
+          class ItinerariesController < ApplicationController
+            def index
+            end
+          end
+
+      ### Result
+
+          browser =>
+            Template is missing: Missing template itineraries/index, application/index with
+            { :locale=>[:en],
+              :formats=>[:html],
+              :handlers=>[:erb, :builder, :raw, :ruby, :jbuilder, :coffee]}.
+            Searched in: * "C:/Users/George Mendoza/trips-app/app/views"
+
+  %section
+    :markdown
+      ## Step 2: Add itineraries/index template
+
+          # app/views/itineraries/index.html.erb
+          <%= debug Itinerary.all %>
+
+      ### Result
+
+          browser =>
+            ---
+            - !ruby/object:Itinerary
+              attributes:
+                id: 1
+                location: Baguio
+                travel_on: 2013-08-12
+            - !ruby/object:Itinerary
+              attributes:
+                id: 2
+                location: Manila
+                travel_on: 2013-08-13
+
+  %section
+    :markdown
+      ## Step 3: Prettify List Itineraries page
+
+          # app/views/itineraries/index.html.erb
+          <% itineraries = Itinerary.all %>
+
+          <h1>Itineraries</h1>
+
+          <table>
+            <tr>
+              <th>Location</th>
+              <th>Travel Date</th>
+            </tr>
+          <% itineraries.each do |itinerary| %>
+            <tr>
+              <td><%= itinerary.location %></td>
+              <td><%= itinerary.travel_on %></td>
+            <tr>
+          <% end %>
+          </table>
+
+  %section
+    :markdown
+      ## Step 4.1: Clean up: do not interact with database directly in views
+
+    .smaller
+      :markdown
+            # app/views/itineraries/index.html.erb
+            <h1>Itineraries</h1>
+
+            <table>
+              <tr>
+                <th>Location</th>
+                <th>Travel Date</th>
+              </tr>
+            <% @itineraries.each do |itinerary| %>
+              <tr>
+                <td><%= @itinerary.location %></td>
+                <td><%= @itinerary.travel_on %></td>
+              <tr>
+            <% end %>
+            </table>
+
+    :markdown
+      ## Result
+
+          browser =>
+            Showing C:/Users/George Mendoza/trips-app/app/views/itineraries/index.html.erb
+              where line #8 raised:
+            undefined method `each' for nil:NilClass
+            Line 8: <% @itineraries.each do |itinerary| %>
+
+  %section
+    :markdown
+      ## Step 4.2: Clean up: itineries/index to set up @itineraries
+
+          # app/controllers/itineraries_controller.rb
+          class ItinerariesController < ApplicationController
+            def index
+              @itineraries = Itinerary.all
+            end
+          end
+
+  %section
+    :markdown
+      ## Step 5: Link itineraries to their Show pages
+
+          # app/views/itineraries/index.html.erb
+          <h1>Itineraries</h1>
+
+          <table>
+            <tr>
+              <th>Location</th>
+              <th>Travel Date</th>
+            </tr>
+          <% @itineraries.each do |itinerary| %>
+            <tr>
+              <td><%= @itinerary.location %></td>
+              <td><%= @itinerary.travel_on %></td>
+              <td><%= link_to 'Show', action: 'show', id: itinerary.id %></td>
+            <tr>
+          <% end %>
+          </table>
+
+  %section
+    :markdown
+      ## Step 6: Link itinerary back to Itineraries Index page
+
+          # app/views/itineraries/show.html.erb
+
+          <p><%= link_to 'Back', action: 'index' %></p>
+
+  = render 'sections/back_to_index'
