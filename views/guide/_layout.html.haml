@@ -12,9 +12,9 @@
     %title= title
     %meta{:content => title, :name => "description"}/
     %meta{:content => "width=device-width", :name => "viewport"}/
-    %link{:href => "vendor/initializr/css/normalize.min.css", :rel => "stylesheet"}/
-    %link{:href => "vendor/initializr/css/main.css", :rel => "stylesheet"}/
-    %script{:src => "vendor/initializr/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"}
+    %link{:href => "/vendor/initializr/css/normalize.min.css", :rel => "stylesheet"}/
+    %link{:href => "/vendor/initializr/css/main.css", :rel => "stylesheet"}/
+    %script{:src => "/vendor/initializr/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"}
   %body
     /[if lt IE 7]
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -24,16 +24,15 @@
           = title
     .main-container
       .main.wrapper.clearfix
-        %article
-          = yield
+        = yield
       / #main
     / #main-container
     .footer-container
       %footer.wrapper
     %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"}
     :javascript
-      window.jQuery || document.write('<script src="vendor/initializr/js/vendor/jquery-1.10.1.min.js"><\/script>')
-    %script{:src => "vendor/initializr/js/main.js"}
+      window.jQuery || document.write('<script src="/vendor/initializr/js/vendor/jquery-1.10.1.min.js"><\/script>')
+    %script{:src => "/vendor/initializr/js/main.js"}
     :javascript
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

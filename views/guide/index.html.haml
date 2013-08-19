@@ -1,2 +1,3 @@
-- Lesson::DATA.each do |lesson|
-  = render_template lesson.basename
+%article
+  - Lesson::DATA.each do |lesson|
+    = render_template lesson.basename
