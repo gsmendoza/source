@@ -23,7 +23,12 @@
   }
 
   pre {
-    margin-left: 1em;
+    border: thin solid #f16529;
+    padding: 1em;
+  }
+
+  pre.goal {
+    border: thick solid #f16529;
   }
 
   section.step, section.result {

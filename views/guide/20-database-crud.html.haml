@@ -1,162 +1,211 @@
 %article
-  %section
-    :markdown
-      # #{Presentation.find(:database_crud).title}
+  %h1
+    Lesson 2:
+    = Presentation.find(:database_crud).title
 
-  %section
+  %section.exercise
     :markdown
       ## Exercise 1: List itineraries
 
-  %section
-    :markdown
-      ## Goal
+    %pre.goal
+      Given I am in the rails console
+      When I enter Itinerary.all
+      Then I should see all the itineraries of the application
 
-          cmd > rails console
-          irb > Itinerary.all
+    %section.step
+      :markdown
+        ### Step 0: Install and configure Geany
 
-      ### Result
+        * Download from [geany.org](geany.org) and install
 
-          NameError: uninitialized constant Itinerary
+        * Configure Geany:
 
-  %section
-    :markdown
-      ## Step 0: Install and configure Geany
-
-      * Download from [geany.org](geany.org) and install
-
-      * Configure Geany:
-
-              Preferences
-                Editor
-                  Indentation
-                    Width: 2
-                    Type: Spaces
+                Menu
+                  Edit
+                    Preferences
+                      Editor
+                        Indentation
+                          Width: 2
+                          Type: Spaces
 
 
-  %section
-    :markdown
-      ## Step 1: Create Itinerary class
+    %section.step
+      :markdown
+        ### Issue 1: uninitialized constant Itinerary
 
-          # app/models/itinerary.rb
-          class Itinerary
-          end
+            Given I am in the rails console
+            When I enter Itinerary.all
+            Then I should see all the itineraries of the application
+            But instead I see the following error:
+              NameError: uninitialized constant Itinerary
 
-      ### Result
+        #### Solution
 
-          irb > Itinerary.all
-          => NoMethodError: undefined method `all' for Itinerary:Class
+        Create an Itinerary Class
 
-      * A class is a type of object.
-      * Convention over configuration: case matters.
-
-
-  %section
-    :markdown
-      ## Step 2: Make Itinerary an ActiveRecord
-
-              # app/models/itinerary.rb
-              class Itinerary < ActiveRecord::Base
-              end
-
-      ### Result
-
-          irb > Itinerary.all
-          => NoMethodError: undefined method `all' for Itinerary:Class
-
-      * ActiveRecord is a ruby gem (library) used to managing database records
-
-
-  %section
-    :markdown
-      ## Step 3: Reload the rails console
-
-          irb > reload!
-
-      ### Result
-
-          Reloading...
-          => true
-
-          irb > Itinerary.all
-          [1m←[35mItinerary Load (0.0ms)←[0m  SELECT "itineraries".* FROM "itineraries"
-          SQLite3::SQLException: no such table: itineraries: SELECT "itineraries".* FROM "itineraries"
-          ActiveRecord::StatementInvalid: SQLite3::SQLException: no such table: itineraries: SELECT "itineraries".* FROM "itineraries"
-
-  %section
-    :markdown
-      ##  Step 4. Create a database table itineraries.
-
-          cmd > rails generate migration create_itineraries
-
-          # /db/migrations/2013_****_create_itineraries.rb
-          class CreateItineraries < ActiveRecord::Migration
-            def change
-              create_table :itineraries do |t|
-                t.string "location"
-                t.date "travel_on"
-              end
+            # app/models/itinerary.rb
+            class Itinerary
             end
-          end
 
-          cmd > rake db:migrate
+    %section.step
+      :markdown
+        ### Issue 2: Itinerary.all is undefined
 
-      * Migration is a transaction to update our database
-      * Database is like an enhanced spreadsheet
-      * Two kinds of rails commands: rails <command> and rake <command>
+            Given I am in the rails console
+            When I enter Itinerary.all
+            Then I should see all the itineraries of the application
+            But instead I see the following error:
+              NoMethodError: undefined method `all' for Itinerary:Class
 
-  %section
+        #### Solution
+
+        Make Itinerary an ActiveRecord
+
+            # app/models/itinerary.rb
+            class Itinerary < ActiveRecord::Base
+            end
+
+    %section.step
+      :markdown
+        ### Issue 3: Itinerary.all is STILL undefined
+
+            Given I am in the rails console
+            And I have changed Itinerary to an ActiveRecord
+            When I enter Itinerary.all
+            Then I should see all the itineraries of the application
+            But instead I STILL see the following error:
+              NoMethodError: undefined method `all' for Itinerary:Class
+
+        #### Solution
+
+        Reload the console. In the rails console, run
+
+            reload!
+
+    %section.step
+      :markdown
+        ### Issue 4: No such table for Itinerary
+
+            Given I am in the rails console
+            When I enter Itinerary.all
+            Then I should see all the itineraries of the application
+            But instead I see the following error:
+
+              [1m←[35mItinerary Load (0.0ms)←[0m  SELECT "itineraries".* FROM "itineraries"
+              SQLite3::SQLException: no such table: itineraries: SELECT "itineraries".* FROM "itineraries"
+              ActiveRecord::StatementInvalid: SQLite3::SQLException: no such table: itineraries:
+                SELECT "itineraries".* FROM "itineraries"
+
+
+        #### Solution
+
+        Create a database table itineraries.
+
+        1. In the Rails app directory, run
+
+                rails generate migration create_itineraries
+
+        1. Edit the generated migration file
+
+                # /db/migrations/2013_****_create_itineraries.rb
+                class CreateItineraries < ActiveRecord::Migration
+                  def change
+                    create_table :itineraries do |t|
+                      t.string "location"
+                      t.date "travel_on"
+                    end
+                  end
+                end
+
+        1. In the Rails app directory, run
+
+                rake db:migrate
+
+    %section.step
+      :markdown
+        ### Final Result
+
+            Given I am in the rails console
+            When I enter Itinerary.all
+            Then I should see all the itineraries of the application
+            And I should see that Itinerary doesn't have itineraries :)
+
+              Itinerary.all
+              => ←[1m←[36mItinerary Load (7.8ms)←[0m  ←[1mSELECT "itineraries".* FROM "itineraries"←[0m
+              => #<ActiveRecord::Relation []>
+
+  %section.exercise
     :markdown
-      ## Result
 
-          irb > Itinerary.all
-          => ←[1m←[36mItinerary Load (7.8ms)←[0m  ←[1mSELECT "itineraries".* FROM "itineraries"←[0m
-          => #<ActiveRecord::Relation []>
-
-  %section
-    :markdown
       ## Exercise 2: Create an itinerary
 
-          irb > itinerary = Itinerary.new
-          => #<Itinerary id: nil, location: nil, travel_on: nil>
+    %pre.goal
+      :preserve
+        Given I am in the rails console
+        When I initialize and save a new itinerary
 
-          irb > itinerary.location = 'Baguio'
-          irb > itinerary.travel_on = Date.new(2013, 12, 25)
-          irb > itinerary.save
+          itinerary = Itinerary.new
+          itinerary.location = 'Baguio'
+          itinerary.travel_on = Date.new(2013, 12, 25)
+          itinerary.save
 
-      * Variable assignment
+        Then I should see that the new itinerary has been saved
 
-  %section
+  %section.exercise
     :markdown
+
       ## Exercise 3: Find a specific itinerary
 
-          irb > Itinerary.find(1)
+    %pre.goal
+      :preserve
+        Given I am in the rails console
+        When I enter
+
+          Itinerary.find(1)
+
+        Then I should see something like
+
           => #<Itinerary id: 1, location: "Baguio", travel_on: "2013-12-25">
 
 
-  %section
+  %section.exercise
     :markdown
       ## Exercise 4: Edit an itinerary
 
-          irb > itinerary = Itinerary.find(1)
-          irb > itinerary.location
-          => "Baguio"
+    %pre.goal
+      :preserve
+        Given I am in the rails console
+        When I change the location of the itinerary from Baguio to Manila
 
-          irb > itinerary = Itinerary.find(1)
-          irb > itinerary.location = 'Manila'
-          irb > itinerary.save
+          itinerary = Itinerary.find(1)
+          itinerary.location = 'Manila'
+          itinerary.save
 
-          irb > itinerary = Itinerary.find(1)
-          irb > itinerary.location
+        And I reload the Itinerary
+
+          itinerary = Itinerary.find(1)
+
+        Then I should see that the location of the itinerary is Manila
+
+          itinerary.location
           => "Manila"
 
-  %section
+  %section.exercise
     :markdown
       ## Exercise 5: Delete an itinerary
 
-          irb > itinerary = Itinerary.find(1)
-          => #<Itinerary id: 1, location: "Baguio", travel_on: "2013-12-25">
+    %pre.goal
+      :preserve
+        Given I am in the rails console
+        When I destroy the itinerary
 
-          irb > itinerary.destroy
+          itinerary = Itinerary.find(1)
+          itinerary.destroy
 
-          irb > Itinerary.find(1)
+        And I reload the itinerary
+
+          Itinerary.find(1)
+
+        Then I should see the following error:
+
           => ActiveRecord::RecordNotFound: Couldn't find Itinerary with id=1

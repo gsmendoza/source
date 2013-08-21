@@ -1,52 +1,56 @@
 %article
   %h1
+    Lesson 1:
     = Presentation.find(:installation).title
 
-  %section.exercise.step
+  %section.exercise
     :markdown
       ## Exercise 1: Installing and running a Rails app.
 
-      #### Issue
+    %pre.goal
+      :preserve
+        Given Rails is installed
+        And I have created a rails app
+        When I run the rails app
+        And I go to http://localhost:3000
+        Then I should see my Rails website
 
-          When I go to http://localhost:3000
-          I should see my Rails website
-          But instead my browser says it cannot display the webpage
+    %section.step
+      :markdown
+        ### Step 1: Given Rails is installed
 
-      #### Cause
+        For Windows, download Rails installer (Ruby 1.9) from
+        [http://railsinstaller.org](http://railsinstaller.org) and install.
+        You will be asked to enter your name and email.
 
-      * Rails is not installed.
-      * Rails is not running.
+    %section.step
+      :markdown
+        ### Step 2: And I have created the app and am now running it
 
-      #### Solution
+        Open Windows Powershell and run
 
-      For Windows, download Rails installer (Ruby 1.9) from
-      [http://railsinstaller.org](http://railsinstaller.org) and install.
-      You will be asked to enter your name and email.
+            rails new trips-app
+            cd trips-app
+            rails server
 
-      Once installed, open Windows Powershell and run
+    %section.step
+      :markdown
+        ### Final Result
 
-          rails new trips-app
-          cd trips-app
-          rails server
+            Given Rails is installed
+            And I have created a rails app
+            When I run the rails app
+            And I go to http://localhost:3000
+            Then I should see my Rails website
 
-      #### Result
+    %section.exercise
+      :markdown
+        ## Exercise 2: Closing the Rails app
 
-      Congratulations! You should now see your Rails app at http://localhost:3000.
-
-  %section.exercise.step
-    :markdown
-      ## Exercise 2: Closing the Rails app
-
-      #### Goal
-
-          When I go to http://localhost:3000
+    %pre.goal
+      :preserve
+          Given my rails app is running
+          When I view the running app in the console
+          And I press `Ctrl-C` then `Y` to terminate batch job.
+          And I view http://localhost:3000
           Then I should no longer see my Rails website running
-
-      #### Solution
-
-      Press `Ctrl-C` then `Y` to terminate batch job.
-
-      #### Result
-
-      If you refresh the browser, http://localhost:3000 should now display
-      "Internet Explorer cannot display the webpage"
