@@ -1,0 +1,44 @@
+.main {
+  article {
+    width: 100%;
+  }
+
+  h1 {
+    background-color: gray;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+  }
+
+  h2, h3 {
+    color: #f16529;
+  }
+
+  p {
+    code {
+      background-color: gray;
+      color: white;
+      padding: 0.12em 0.5em;
+    }
+  }
+
+  pre {
+    margin-left: 1em;
+  }
+
+  section.step, section.result {
+    border: thick solid gray;
+    margin-bottom: 2em;
+    padding: 1em;
+  }
+
+  section.exercise {
+    margin-bottom: 2em;
+  }
+
+  section {
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+    }
+  }
+}
