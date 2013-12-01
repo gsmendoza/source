@@ -1,0 +1,60 @@
+- title = 'A workaround for isolated tests with local steps in Cucumber'
+- date = Date.new(2012, 8, 24)
+
+= render '/blog/article_title', locals: { title: title, date: date }
+
+:markdown
+
+  ------------------------------------------------------------
+
+  I've always wanted to write tests using [Spinach](https://github.com/codegram/spinach). Unlike Cucumber, steps in Spinach are local to the feature they are defined. Therefore, they do not conflict with step definitions in other features.
+
+  However, we're using Cucumber in our project. The Cucumber way doesn't allow steps local to a scenario. In fact, it even considers it an [anti-pattern](https://github.com/cucumber/cucumber/wiki/Feature-Coupled-Steps-(Antipattern)).
+
+  Last week though, I had an idea: why not stamp each step with a scenario ID so that the step is local to the scenario? Using the spinach example, I ended with something like this:
+
+      # features/1_greetings.feature
+
+      Scenario: Formal greeting
+        Given I have an empty array [#1]
+        And I append my first name and my last name to it [#1]
+        When I pass it to my super-duper method [#1]
+        Then the output should contain a formal greeting [#1]
+
+  The #1 stamp id can be any value. However, I like to use ticket numbers for documentation.
+
+  I then placed all the steps in one step definition file:
+
+      # features/step_definitions/1_greetings.rb
+
+      Given 'I have an empty array [#1]' do
+        #...
+      end
+
+      And 'I append my first name and my last name to it [#1]' do
+        #...
+      end
+
+      When 'I pass it to my super-duper method [#1]' do
+        #...
+      end
+
+      Then 'the output should contain a formal greeting [#1]' do
+        #...
+      end
+
+  Benefits:
+
+  1. I can read the implementation of the scenario in one file. I can also write the step definitions from top to bottom, making them easier to read.
+  2. The descriptions of the step definitions are within the context of the scenario. This allows me to write step definitions that are more concise, since I can choose not to add details that are already implied elsewhere in the scenario. This makes the scenario more natural to read.
+  3. If I change a step definition, I don't have to worry about the change breaking other tests.
+
+  Of course, the step definitions are not reusable, but for me, that's a plus. The use of regular expressions as step definition arguments makes it difficult to find the implementation of a step. It's also not easy to remove or change a step definition since you can't immediately tell if the step is used in other features.
+
+  I presented this approach to the Cucumber guy in the team. He's not too hot about it :) While he agrees that reusing steps creates more problems that it solves, he believes that if you can make a step explicit enough, it would prevent steps from colliding. Besides, he says that you *do* want explicit steps because they become your tools for communicating the language of the project's domain. In other words, a step should be a concrete atomic construct of the domain language.
+
+  This notion of making steps atoms of the domain language is certainly possible (just look at the apps in RelishApps). However, I think this idea was also primarily made out of the desire to make the steps reusable. If you agree that reusable steps are more painful than beneficial, and that long, explicit step definition are unnatural to read, is there any other reason to make each step unique and explicit?
+
+  With the ticket number approach above, I've decided to express domain concepts one level higher: from the step to the scenario. Unlike the step, the scenario is sure to be isolated: it is a self contained story within the domain. The steps can now be local to the scenario: their implementation will just depend on the context of the scenario. The scenarios are now the tools for communicating the domain language, not the steps.
+
+  Your thoughts?
