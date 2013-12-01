@@ -32,6 +32,15 @@
     / #main-container
     .footer-container
       %footer.wrapper
+        %section.about
+          %p
+            gsmendoza is George Mendoza, a software developer based in Baguio City,
+            Philippines. You can find him at
+          %ul
+            %li= link_to 'http://facebook.com/gsmendoza', 'http://facebook.com/gsmendoza'
+            %li= link_to 'http://github.com/gsmendoza', 'http://github.com/gsmendoza'
+            %li= link_to 'http://www.youtube.com/user/gsmendozaplusplus', 'http://www.youtube.com/user/gsmendozaplusplus'
+
     %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"}
     :javascript
       window.jQuery || document.write('<script src="/vendor/initializr/js/vendor/jquery-1.10.1.min.js"><\/script>')
