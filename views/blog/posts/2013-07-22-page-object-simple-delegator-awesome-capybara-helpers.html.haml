@@ -1,0 +1,91 @@
+:markdown
+  PageObject + SimpleDelegator = Awesome Capybara Helpers
+  -----------------------------------------------------
+
+  I've always liked using the [Page Object pattern](http://blog.josephwilk.net/cucumber/page-object-pattern.html) to write  concise, namespaced, and composeable capybara helpers:
+
+      When /^I register as a new user$/ do
+        NewUserPage.new(self).tap do |page|
+          page.visit!
+          page.form.fill
+          page.form.submit!
+        end
+      end
+
+      class PageObject
+        attr_reader :page
+
+        def initialize(page)
+          @page = page
+        end
+      end
+
+      class NewUserPage < PageObject
+        def visit!
+          page.visit new_user_path
+        end
+
+        def form
+          @form ||= UserForm.new(self)
+        end
+      end
+
+      class UserForm < PageObject
+        attr_reader :parent
+
+        def initialize(parent)
+          @parent = parent
+        end
+
+        def fill
+          page.find('[name$="[name]"]').set 'George'
+          page.find('[password$="[password]"]').set 'password'
+        end
+
+        def page
+          parent.page
+        end
+
+        def submit!
+          page.find('input[type=submit]').click
+        end
+      end
+
+  However, with this PORO implementation, constantly calling `page` in the PageObject classes can be annoying. It would be nice to call the Capybara helpers directly without having to mix in Capybara::DSL and all those rspec/capybara helpers into PageObject.
+
+  Turns out there is. And it's in the standard Ruby library.
+
+  [SimpleDelegator](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/delegate/rdoc/SimpleDelegator.html) "provides the means to delegate all supported method calls to the object passed into the constructor". So if I subclass the NewUserPage class from SimpleDelegator:
+
+      class NewUserPage < SimpleDelegator
+      end
+
+  And I instantiate it with the the test suite itself:
+
+      When /^I register as a new user$/ do
+        new_page = NewUserPage.new(self)
+        # ...
+      end
+
+  Then Capybara helpers like `visit` or `find` automatically become available to `new_page`! So now I can write the PageObject classes like this:
+
+      class NewUserPage < SimpleDelegator
+        def visit!
+          visit new_user_path
+        end
+
+        def form
+          @form ||= UserForm.new(self)
+        end
+      end
+
+      class UserForm < SimpleDelegator
+        def fill
+          find('[name$="[name]"]').set 'George'
+          find('[password$="[password]"]').set 'password'
+        end
+
+        def submit!
+          find('input[type=submit]').click
+        end
+      end
