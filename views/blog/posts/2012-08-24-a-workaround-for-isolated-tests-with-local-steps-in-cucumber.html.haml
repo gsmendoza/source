@@ -1,5 +1,10 @@
+- title = 'A workaround for isolated tests with local steps in Cucumber'
+- date = Date.new(2012, 8, 24)
+
+= render '/blog/article_title', locals: { title: title, date: date }
+
 :markdown
-  A workaround for isolated tests with local steps in Cucumber
+
   ------------------------------------------------------------
 
   I've always wanted to write tests using [Spinach](https://github.com/codegram/spinach). Unlike Cucumber, steps in Spinach are local to the feature they are defined. Therefore, they do not conflict with step definitions in other features.

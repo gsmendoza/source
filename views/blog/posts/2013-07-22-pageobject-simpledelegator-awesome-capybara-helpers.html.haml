@@ -1,7 +1,9 @@
-:markdown
-  PageObject + SimpleDelegator = Awesome Capybara Helpers
-  -----------------------------------------------------
+- title = 'PageObject + SimpleDelegator = Awesome Capybara Helpers'
+- date = Date.new(2013, 7, 22)
 
+= render '/blog/article_title', locals: { title: title, date: date }
+
+:markdown
   I've always liked using the [Page Object pattern](http://blog.josephwilk.net/cucumber/page-object-pattern.html) to write  concise, namespaced, and composeable capybara helpers:
 
       When /^I register as a new user$/ do
