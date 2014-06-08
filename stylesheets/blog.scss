@@ -20,7 +20,10 @@
   }
 
   h2 {
-    margin-top: 2em;
+    font-size: 3em;
+    line-height: 1.1em;
+    margin-top: 1.5em;
+    text-align: center;
 
     a {
       color: inherit;
@@ -29,7 +32,11 @@
   }
 
 
-  h2, h3 {
+  h2 {
+    color: #f16529;
+  }
+
+  h3 {
     color: #f16529;
   }
 

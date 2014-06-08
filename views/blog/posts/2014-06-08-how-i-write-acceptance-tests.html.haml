@@ -1,0 +1,31 @@
+- title = 'How I write acceptance tests'
+- date = Date.new(2014, 6, 8)
+
+= render '/blog/article_title', locals: { title: title, date: date }
+
+:markdown
+  *This article is a work in progress. However, I'm putting it out to the public as motivation for myself to complete it :)*
+
+  [https://github.com/gsmendoza/napybara](https://github.com/gsmendoza/napybara) is a ruby gem I wrote for building Capybara helpers.
+
+  ### Use rspec-example_steps to describe the test from the user's perspective
+
+  * [https://github.com/railsware/rspec-example_steps](https://github.com/railsware/rspec-example_steps) is a gem for writing Given When Then tests. It's an underrated alternative to Cucumber.
+
+  * Make each step pending.
+
+  * Don't worry about reusing steps. Reuse Napybara pages instead!
+
+  ### Describe each step
+
+  * Describe how to interact with the page and its elements in an objecti-oriented, not procedural-oriented, fashion.
+
+  ### Pattern: Napybara elements with values
+
+  * If a Napybara element represents some object in the domain, add a `value` method to it. Let the method return the value represented by the element.
+
+  ### Implement the feature step by step
+
+  * Build the Napybara page along with the actual UI.
+
+  ### Move Napybara page to its own module for reuse in other tests

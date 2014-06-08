@@ -1,2 +1,3 @@
-- Pathname.new('views/blog/posts').children.reverse.each do |path|
+- Pathname.new('views/blog/posts').children.sort.reverse.each do |path|
   = render_template 'posts/' + path.split.last.to_s.sub('.html.haml', '')
+
