@@ -46,7 +46,30 @@
 
   ### Describe each step
 
-  * Describe how to interact with the page and its elements in an objecti-oriented, not procedural-oriented, fashion.
+  I use Napybara to describe each step in an object-oriented manner. For example, let's take the second step:
+
+      When "I click the New To-Do link"
+
+  This is how I can describe this step with Napybara:
+
+      When "I click the New To-Do link" do
+        home_page.new_todo_link.node.click
+      end
+
+  Compare with describing the steps using Capybara's API:
+
+      When "I click the New To-Do link" do
+        click_link 'New To-do'
+      end
+
+  The Capybara approach describes the step in terms of procedures while the Napybara approach describes the steps in terms of pages and elements. The Capybara approach also uses a single call to find the element and interact with it, while the Napybara approach breaks these two actions into separate calls. In my opinion, these differences make working with acceptance tests easier with Napybara:
+
+  1. Debugging. When an acceptance test fails, we usually want to know 1) if the element we're interacting with in the page is still there, and 2) if we're interacting with it correctly. Since Napybara allows us to make separate calls for these two actions, it's easier for us to isolate them during troubleshooting.
+
+  2. Organizing and discovering helpers. Todo.
+
+
+  Some argue that writing the steps in terms of procedures is more high-level and is thus closer to the user's way of thinking. This might be true, but we can already accomplish this advantage by writing the steps in Gherkin.
 
   ### Pattern: Napybara elements with values
 
